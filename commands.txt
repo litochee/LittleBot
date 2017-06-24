@@ -1,0 +1,14 @@
+:?al <@name> <number(1-3)> = grant access level
+:?crole <name> = creates a role and records it in db for role command
+:?GetPin = Get's user pin
+:?help = shows help document
+:?leaderboard = shows leaderboard
+:?rank = shows rank on leaderboard
+:?reload = reloads commands
+:?resetPin = resets pin
+:?rlevel <level> <name of role> = get name of role at level
+:?role <role name> = get role from db (case sensitive!)
+:?say <tell bot what to say>
+:?status <insert bot status>
+:?announce <insert announcement don't include @everyone>
+:?ann <approve/declime> = approve or decline an announcemnt (if you decline put a reason)
