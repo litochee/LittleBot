@@ -1,4 +1,4 @@
-1. Announcement approval on bot
+1. Announcement approval on bot - Done
 2. event system
 3. league names db
 4. reminder system // set schedule and send it out / accept/decline the reminder
