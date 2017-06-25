@@ -11,7 +11,7 @@
 :?say <tell bot what to say>
 :?status <insert bot status>
 :?announce <insert announcement don't include @everyone>
-:?ann <approve/declime> = approve or decline an announcemnt (if you decline put a reason)
+:?ann <approve/decline> = approve or decline an announcemnt (if you decline put a reason)
 :?setup -- setup for different servers
 :?setup welcome <channel name> - change the welcome message channel
 :?setup leave <channel name> - change the leave message channel
