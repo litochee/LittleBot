@@ -13,7 +13,7 @@ fs.readdir('./events/', (err, files) => {
     let eventFunction = require(`./events/${file}`);
     let eventName = file.split('.')[0];
 
-    client.on(eventName, (...args) => eventFunction.run(client, ...args));
+    client.on(eventName, (...args) => eventFunction.run(client, ...args, sql));
   });
 });
 
