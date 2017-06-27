@@ -3,7 +3,7 @@ exports.run = (client, member, sql) =>{
 
   sql.get(`SELECT * FROM gSettings WHERE GuildId = ${guild.id}`).then(gset =>{
     if(!gset){
-      guild.defaultChannel.send(`Welcome **${member}** to the server!!`);
+      return;
     }else{
       let channel = guild.channels.find('name', gset.welcome);
       if (!channel){

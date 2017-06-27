@@ -18,6 +18,10 @@ module.exports.helpEmbed = function(client, message, args, sql) {
       {
         name: "Access Level 3 - Guild Owners",
         value: "**:?al** '@name' <number 1-3> - Giving someone access level default is 1 \n\n**:?setup** - sets up server settings on the bot \n\n**:?setup** welcome/leave/announce <channel name> - setting up channels for when people join, leave, and for announcements \n\n**:?crole** <name> - creates role and sets up for **:?role** <role name> (default is 1 - anyone can get these roles) \n\n**:?ann** approve/decline <id> - approve the announcement that a mod has submitted. (if you decline you must put a reason after the id) \n\n**:?rlevel** <level> <name of role> - user get's this role when they reach a level on the points system"
+      },
+      {
+        name: "Want this bot in your server?",
+        value: "[**Click Here**](https://discordapp.com/oauth2/authorize?permissions=1610087633&scope=bot&client_id=318300462703181824)"
       }
     ],
     timestamp: new Date(),
