@@ -17,13 +17,12 @@ exports.run = (client, message, args, sql) =>{
           message.reply("Sorry you don't have enough access to get this role");
           return;
         }
-      }).catch(console.error);
+      }).catch(() =>{
+        message.reply("Please type anything in channel and try again.");
+      })
     }
   }).catch(() =>{
-    console.error;
   	message.channel.send(`Sorry ${args.join(" ")} is not a role. Roles are case sensitive please try again.`);
-    //console.log(args.join(" "));
-
   	return ;
   });
 
