@@ -1,6 +1,6 @@
 exports.run = (client, message, args, sql) =>{
     sql.get(`SELECT * FROM userScores WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`).then(iUser =>{
-        if(AccessLevel >= 2){
+        if(iUser.AccessLevel >= 2){
             const user = message.mentions.users.first();
             const amount = !!parseInt(args[1]) ? parseInt(args[2]) : parseInt(args[1]);
             if (!amount) return message.reply('Must specify an amount to delete!');
