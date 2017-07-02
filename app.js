@@ -33,7 +33,7 @@ client.on('message', message =>{
 
         if (curPoints > row.nextPL) { //leveling up
           let nPLE = Math.floor(row.nextPL * 1.25); //calculates next points to level
-          sql.run(`UPDATE userScores SET points = ${row.points + 1}, nextPL = ${nPLE}, level = ${row.level + 1}, username = ${message.author.username} WHERE userId = ${message.author.id} AND guildID = ${message.guild.id}`); //updates the database
+          sql.run(`UPDATE userScores SET points = ${row.points + 1}, nextPL = ${nPLE}, level = ${row.level + 1}, username = ${message.author.username} WHERE userID = ${message.author.id} AND guildID = ${message.guild.id}`); //updates the database
           let levelUp = row.level + 1; //levels up
           
           message.reply(`You've leveled up to level **${levelUp}**! Congrats!!`); //tell user they leveled up
