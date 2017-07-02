@@ -8,7 +8,7 @@ sql.all(`SELECT RoleName FROM mRoles WHERE GuildID='${message.guild.id}'`).then(
       icon_url: client.user.avatarURL
     },
     title: "Roles",
-    description: "List of Roles you can assign yourseld with the **:?role <role name>** command!",
+    description: "List of Roles you can assign yourself with the **:?role <role name>** command!",
     fields: [{
         name: "Roles",
         value: `${aRoles.join("\n")}`
