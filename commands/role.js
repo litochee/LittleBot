@@ -4,7 +4,7 @@ exports.run = (client, message, args, sql) =>{
       message.reply(`There is no role named ${args.join(" ")}, roles are case-sensitive`);
     }else{
       sql.get(`SELECT * FROM userScores WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`).then(iUser =>{ //gets user row of whos requesting
-        if(iUser.AccessLevel >= iRole.AccessLevel){ //checks to see if the user has enough permissions
+        if(iUser.AccessLevel >= iRole.AccessLevel || iRole.AccessLevel == 1){ //checks to see if the user has enough permissions
           //check to see if user already has role, if they do take it away
           if(message.member.roles.has(iRole.RoleID)){
             message.member.removeRole(iRole.RoleID).catch(console.error);
