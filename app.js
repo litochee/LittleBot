@@ -17,35 +17,35 @@ fs.readdir('./events/', (err, files) => {
 });
 
 
-client.on('message', message =>{
+client.on('message', message => {
   if (message.author.bot) return;
-  if (!message.content.startsWith(config.prefix)){
+  if (!message.content.startsWith(config.prefix)) {
     //level system!
-    if (message.channel.type !== 'text') return;
-    sql.get(`SELECT * FROM userScores WHERE guildID = ${message.guild.id} AND userID = ${message.author.id}`).then(row =>{
-      if (!row){ //can't find the row
-        if (message.channel.type === 'dm') return; //ignores DM channels
-          sql.run(`INSERT INTO userScores (guildID, userID, Username, points, nextPL, level, eventPoints, upin, rank, AccessLevel) VALUES (?,?,?,?,?,?,?,?,?,?)`, [message.guild.id, message.author.id, message.author.username, 1, 100, 0,0,0,0,1]); //creates user entry
-      }else{//can find row
-        if (message.channel.type === 'dm') return; //ignores DM channels
-        if (message.channel.id === '317489450106093588')return; //this is for bot testing channel in nudles
+    // Ignore messages from non-text channels and dms
+    if (message.channel.type !== 'text' || message.channel.type === 'dm') return;
+
+    sql.get(`SELECT * FROM userScores WHERE guildID = ${message.guild.id} AND userID = ${message.author.id}`).then(row => {
+      if (!row) { //can't find the row
+        sql.run(`INSERT INTO userScores (guildID, userID, Username, points, nextPL, level, eventPoints, upin, rank, AccessLevel) VALUES (?,?,?,?,?,?,?,?,?,?)`, [message.guild.id, message.author.id, message.author.username, 1, 100, 0, 0, 0, 0, 1]); //creates user entry
+      } else {//can find row
+        if (message.channel.id === '317489450106093588') return; //this is for bot testing channel in nudles
         let curPoints = row.points + 1; //add + 1 points
 
         if (curPoints > row.nextPL) { //leveling up
           let nPLE = Math.floor(row.nextPL * 1.25); //calculates next points to level
           sql.run(`UPDATE userScores SET points = ${row.points + 1}, nextPL = ${nPLE}, level = ${row.level + 1}, username = '${message.author.username}' WHERE userID = ${message.author.id} AND guildID = ${message.guild.id}`); //updates the database
           let levelUp = row.level + 1; //levels up
-          
+
           message.reply(`You've leveled up to level **${levelUp}**! Congrats!!`); //tell user they leveled up
         }
 
         checkRank.levelRank(message, sql);
         sql.run(`UPDATE userScores SET points = ${row.points + 1} WHERE userID ='${message.author.id}' AND guildID='${message.guild.id}'`); //updates points
         //SETS rank
-        sql.all(`SELECT userID from userScores WHERE guildID='${message.guild.id}' ORDER BY points DESC`).then(rColumns=>{
-          const users= rColumns.map(r=>r.userID); //array methods, THANK YOU EEVIE!!
+        sql.all(`SELECT userID from userScores WHERE guildID='${message.guild.id}' ORDER BY points DESC`).then(rColumns => {
+          const users = rColumns.map(r => r.userID); //array methods, THANK YOU EEVIE!!
           let i = 0;
-          while (users[i]){
+          while (users[i]) {
             sql.run(`UPDATE userScores SET rank = ${i + 1} WHERE userID =${users[i]} AND guildID=${message.guild.id}`);
             i++;
           }
@@ -53,12 +53,12 @@ client.on('message', message =>{
         });
         //END rank
       }
-    }).catch(() =>{
-      sql.run(`CREATE TABLE IF NOT EXISTS userScores (guildID TEXT, userID TEXT, username TEXT, points INTEGER, nextPL INTEGER, level INTEGER, eventPoints INTEGER, upin INTEGER, rank INTEGER, AccessLevel INTEGER)`).then(() =>{ //creates TABLE
-        sql.run(`INSERT INTO userScores (guildID, userID, Username, points, nextPL, level, eventPoints, upin, rank, AccessLevel) VALUES (?,?,?,?,?,?,?,?,?,?)`,[message.guild.id, message.author.id, message.author.username, 1, 100, 0, 0, 0,0,1]); //inserts to TABLE
+    }).catch(() => {
+      sql.run(`CREATE TABLE IF NOT EXISTS userScores (guildID TEXT, userID TEXT, username TEXT, points INTEGER, nextPL INTEGER, level INTEGER, eventPoints INTEGER, upin INTEGER, rank INTEGER, AccessLevel INTEGER)`).then(() => { //creates TABLE
+        sql.run(`INSERT INTO userScores (guildID, userID, Username, points, nextPL, level, eventPoints, upin, rank, AccessLevel) VALUES (?,?,?,?,?,?,?,?,?,?)`, [message.guild.id, message.author.id, message.author.username, 1, 100, 0, 0, 0, 0, 1]); //inserts to TABLE
       });
     });
-  }else{
+  } else {
 
     let command = message.content.split(' ')[0];
     command = command.slice(config.prefix.length);
@@ -68,11 +68,11 @@ client.on('message', message =>{
     try {
       let commandFile = require(`./commands/${command}.js`);
       commandFile.run(client, message, args, sql, Discord);
-    }catch (err) {
+    } catch (err) {
       return;
     }
   }
 
-})
+});
 
 client.login(config.token);
