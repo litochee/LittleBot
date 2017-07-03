@@ -1,6 +1,6 @@
 const pEmbed = require('./../embeds/eProfile.js');
 exports.run = (client, message, args, sql, Discord) =>{
-    let member = message.guild.member(message.mentions.users.first());
+    const member = message.guild.member(message.mentions.users.first());
 
     if(!member){
         sql.get(`SELECT * FROM userScores WHERE guildID = '${message.guild.id}' AND userID = '${message.author.id}'`).then(iUser =>{ //gets user row of whos requesting
@@ -15,7 +15,7 @@ exports.run = (client, message, args, sql, Discord) =>{
             if(!iUser){
                 message.reply("Sorry they don't have any points. Have them start chatting to earn them!");
             }else{
-                pEmbed.profileEmbed(client, message, member, iUser, Discord);
+                pEmbed.profileEmbed(client, message, member.user, iUser, Discord);
             }
         })
     }
