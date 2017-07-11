@@ -28,7 +28,6 @@ module.exports.settingsEmbed = function(client, message, sql, Discord) {
                         .setColor(0x00AE86)
                         .addField("Settings", `Owner: **${sRow.OwnerUser}**\nWelcome Channel: **${sRow.welcome}**\nLeave Channel: **${sRow.leave}**`, true)
                         .addField("Roles", `${mrOut}`, true)
-                        .addBlankField(true)
                         .addField("Level Up Roles", `${rlOut}`, true)
                     message.channel.send({embed: embed});
                     });
