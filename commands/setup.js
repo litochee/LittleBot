@@ -1,4 +1,5 @@
-exports.run = (client, message, args, sql) =>{
+const sEmbed = require('./../embeds/eSettings.js');
+exports.run = (client, message, args, sql, Discord) =>{
     let subCommand = args[0];
     let secondArgu = args[1];
     sql.get(`SELECT * FROM userScores WHERE guildID=${message.guild.id} AND userID=${message.author.id}`).then(iUser =>{
@@ -52,6 +53,8 @@ exports.run = (client, message, args, sql) =>{
                         }
                     })
                 }
+            }else if(subCommand == "view"){
+                sEmbed.settingsEmbed(client, message, sql, Discord);
             }else{
                 message.reply(`Sorry ${secondArgu} is not a command.`);
             }
