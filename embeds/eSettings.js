@@ -4,7 +4,7 @@ module.exports.settingsEmbed = function(client, message, sql, Discord) {
         if(!sRow){
             message.reply("Please have the settings setup with :?setup");
         }else{
-            sql.all(`SELECT roleName, level FROM levelRoles WHERE guildID = '${message.guild.id}'`).then(rRow =>{
+            sql.all(`SELECT roleName, level FROM levelRoles WHERE guildID = '${message.guild.id}' ORDER BY level ASC`).then(rRow =>{
                 if(!rRow[0]){
                     var rlOut = "None";
                 }else{
@@ -26,9 +26,9 @@ module.exports.settingsEmbed = function(client, message, sql, Discord) {
                         .setTitle("LittleBot Settings")
                         .setDescription(`**Settings for ${message.guild.name} server**`)
                         .setColor(0x00AE86)
-                        .addField("Settings", `Owner: **${sRow.OwnerUser}**\nWelcome Channel: **${sRow.welcome}**\nLeave Channel: **${sRow.leave}**`, true)
                         .addField("Roles", `${mrOut}`, true)
                         .addField("Level Up Roles", `${rlOut}`, true)
+                        .addField("Settings", `Owner: **${sRow.OwnerUser}**\nWelcome Channel: **${sRow.welcome}**\nLeave Channel: **${sRow.leave}**`, false)
                     message.channel.send({embed: embed});
                     });
             });
