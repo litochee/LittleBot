@@ -38,21 +38,6 @@ exports.run = (client, message, args, sql, Discord) =>{
                         }
                     })
                 }
-            }else if(subCommand == "announce"){
-                const channel = message.guild.channels.find('name', secondArgu);
-                if(!channel){
-                    message.reply(`Sorry **${secondArgu}** is not a channel.`);
-                }else{
-                    sql.get(`SELECT * FROM gSettings WHERE guildID = ${message.guild.id}`).then(gRow =>{
-                        if(!gRow){
-                            message.reply("Please run the **:?setup** command before running this.");
-                            return;
-                        }else{
-                            sql.run(`UPDATE gSettings SET announce = '${secondArgu}' WHERE guildID = ${message.guild.id}`)
-                            message.reply(`Announce channel has been set to **${secondArgu}**.`);
-                        }
-                    })
-                }
             }else if(subCommand == "view"){
                 sEmbed.settingsEmbed(client, message, sql, Discord);
             }else{
