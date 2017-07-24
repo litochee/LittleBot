@@ -15,8 +15,6 @@ module.exports.leaderboardEmbed = function(client, message, sql, Discord) {
         }
 
         var embed = new Discord.RichEmbed()
-            //.setTitle(`**Leaderboards**`)
-            //.setDescription(`**${message.guild.name}**`)
             .setColor(0x00AE86)
             .setThumbnail(message.guild.iconURL)
             .addField(`Leaderboards for **${message.guild.name}**`, `${leadOut}`, true)
